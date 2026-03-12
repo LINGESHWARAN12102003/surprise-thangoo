@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Love Questions</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* RESULT COLORS */
+
+.correct{
+color:#28a745;
+font-size:24px;
+font-weight:bold;
+}
+
+.wrong{
+color:#dc3545;
+font-size:24px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body class="bg">
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container text-center">
+
+<h1 class="mt-5">❤️ Answer These Questions</h1>
+
+<div class="card p-4 shadow question-box">
+
+<div id="question"></div>
+
+<div id="options"></div>
+
+<p id="result"></p>
+
+<p id="score"></p>
+
+<a href="future.html" id="nextPage"
+class="btn btn-danger mt-3"
+style="display:none;">
+Next Page ➜
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+/* MUSIC CONTINUE SYSTEM */
+
+let music=document.getElementById("music");
+
+window.addEventListener("load",function(){
+
+let time=localStorage.getItem("musicTime");
+let playing=localStorage.getItem("musicPlaying");
+
+if(time){
+music.currentTime=time;
+}
+
+if(playing==="true"){
+music.play();
+}
+
+});
+
+setInterval(function(){
+
+localStorage.setItem("musicTime",music.currentTime);
+localStorage.setItem("musicPlaying",!music.paused);
+
+},1000);
+
+
+/* QUIZ QUESTIONS */
+
+let questions=[
+
+{question:"When did we first meet?",
+options:["OCT 20 2021","DEC 3 2021","DEC 22 2021"],
+answer:"OCT 20 2021"},
+
+{question:"When did you accept my love?",
+options:["NOV 22 2024","DEC 3 2024","MARCH 14 2025"],
+answer:"MARCH 14 2025"},
+
+{question:"How much amount we planned for our future?",
+options:["3 CRORE","10 CRORE","7 CRORE"],
+answer:"7 CRORE"},
+
+{question:"Did your mom know that we are loving each other?",
+options:["Yes ❤️","No"],
+answer:"Yes ❤️"},
+
+{question:"Which part of your body I like the most?",
+options:["Chin","Cheeks","Fore head"],
+answer:"Chin"},
+
+{question:"How did I call you  the most?",
+options:["Thangoo","Mumu","Moddu"],
+answer:"Mumu"}
+
+];
+
+let current=0;
+let score=0;
+let firstAttempt=true;
+
+function loadQuestion(){
+
+firstAttempt=true;
+
+let q=questions[current];
+
+document.getElementById("question").innerHTML="<h4>"+q.question+"</h4>";
+
+let buttons="";
+
+q.options.forEach(o=>{
+buttons+=`<button class="btn btn-outline-dark m-2"
+onclick="checkAnswer('${o}')">${o}</button>`;
+});
+
+document.getElementById("options").innerHTML=buttons;
+
+document.getElementById("result").innerHTML="";
+
+}
+
+function checkAnswer(selected){
+
+let correct=questions[current].answer;
+
+if(selected===correct){
+
+if(firstAttempt) score++;
+
+document.getElementById("result").innerHTML=
+"<span class='correct'>✔ Correct Answer</span>";
+
+setTimeout(()=>{
+
+current++;
+
+if(current<questions.length){
+
+loadQuestion();
+
+}else{
+
+document.getElementById("question").innerHTML="🎉 Quiz Finished";
+
+document.getElementById("options").innerHTML="";
+
+document.getElementById("score").innerHTML=
+"Your Score (First Attempt): "+score+" / "+questions.length;
+
+document.getElementById("nextPage").style.display="block";
+
+}
+
+},1000);
+
+}else{
+
+firstAttempt=false;
+
+document.getElementById("result").innerHTML=
+"<span class='wrong'>❌ Wrong Answer</span>";
+
+}
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>

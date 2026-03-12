@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>My Love Message</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="bg">
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container text-center mt-5">
+
+<h1>💌 A Message From My Heart</h1>
+
+<div class="card p-4 shadow mt-4">
+
+<p>
+My Love,
+
+Happy Birthday to the most beautiful person and the most beautiful heart in my life.
+
+Four years ago, I started following a girl who had something special about her. It wasn’t just what she did, but the kind of person she was — kind, passionate, strong, and full of dreams. The way you carried yourself, the way you worked hard for your goals, and the warmth you showed to the world slowly made me admire you more than I ever expected.
+
+At first, I was simply someone watching from afar, appreciating the wonderful person you were becoming. But slowly, without even realizing it, my heart started caring about you more deeply. Day by day, admiration turned into something much more meaningful.
+
+For four years, I supported you quietly and hoped that one day you would see how much you meant to me. And then, exactly one year ago, the happiest moment of my life happened — you accepted my love.
+
+That day will always be one of the most precious memories of my life, because it was the day my heart finally found its home.
+
+You are not just someone I love — you are someone I deeply admire. Your passion, your dedication, and the strength you show while chasing your dreams inspire me every single day.
+
+There is something you may not fully realize. Because of you, my life started changing. Your encouragement and belief in me gave me strength when I doubted myself. Because of you, I pushed myself harder, believed in my abilities, and finally achieved something important in my life — my job.
+
+In many ways, you became my motivation and my luck.
+
+Our journey has not always been easy. We faced struggles, misunderstandings, and difficult moments together. But through all of it, one thing never changed — my love for you.
+
+Those challenges only made my feelings stronger, because every struggle reminded me how much you mean to me and how much I want to stand beside you no matter what happens.
+
+You are more than just my girlfriend.
+
+You are my inspiration.
+You are my happiness.
+You are the person who gives meaning to my life.
+
+When I think about the future, I don’t imagine my life alone. I imagine a future where I stand beside you as you achieve your dreams, where I proudly watch the world recognize the amazing person that I already know you are.
+
+I promise to always believe in you, support you, and stand beside you in every moment — in victories and in challenges.
+
+On your birthday, I want you to remember something very important.
+
+You are incredibly special.
+Not just because of your beauty.
+Not just because of your talents.
+But because of the kind, strong, and wonderful person you are.
+
+Happy Birthday, my love.
+
+No matter how many dreams you achieve or how far life takes us, you will always be the most beautiful part of my story.
+
+Forever yours ❤️
+</p>
+
+</div>
+
+<a href="questions.html" class="btn btn-danger mt-4 btn-lg w-75">
+Next ➜
+</a>
+
+</div>
+
+<script>
+
+let music=document.getElementById("music");
+
+window.addEventListener("load",function(){
+
+let time=localStorage.getItem("musicTime");
+let playing=localStorage.getItem("musicPlaying");
+
+if(time){music.currentTime=time;}
+
+if(playing==="true"){music.play();}
+
+});
+
+setInterval(function(){
+
+localStorage.setItem("musicTime",music.currentTime);
+localStorage.setItem("musicPlaying",!music.paused);
+
+},1000);
+
+</script>
+
+</body>
+</html>
