@@ -8,18 +8,26 @@
 
 <style>
 
-body{
+*{
 margin:0;
-overflow:hidden;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
 background:black;
 font-family:Arial;
 color:white;
+overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+text-align:center;
 flex-direction:column;
 }
+
+/* CANVAS */
 
 canvas{
 position:fixed;
@@ -30,30 +38,74 @@ height:100%;
 z-index:-1;
 }
 
+/* START BUTTON */
+
+.startBtn{
+padding:15px 35px;
+font-size:22px;
+border:none;
+border-radius:40px;
+background:#ff0055;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.startBtn:hover{
+transform:scale(1.05);
+}
+
+/* MESSAGE */
+
 .message{
-font-size:60px;
 font-weight:bold;
 opacity:0;
 transform:scale(0.5);
 transition:1.5s;
-text-align:center;
+padding:20px;
 }
 
 .show{
 opacity:1;
-transform:scale(1.2);
+transform:scale(1.1);
 color:#ffd700;
 }
 
-.sub{
-font-size:24px;
-margin-top:15px;
-opacity:0;
-transition:1s;
+/* DESKTOP FONT */
+
+.message{
+font-size:60px;
 }
 
-.showSub{
-opacity:1;
+/* TABLET */
+
+@media (max-width:768px){
+
+.message{
+font-size:40px;
+}
+
+.startBtn{
+font-size:18px;
+padding:12px 28px;
+}
+
+}
+
+/* MOBILE */
+
+@media (max-width:480px){
+
+.message{
+font-size:28px;
+line-height:1.4;
+}
+
+.startBtn{
+font-size:16px;
+padding:10px 24px;
+}
+
 }
 
 </style>
@@ -62,14 +114,14 @@ opacity:1;
 
 <body>
 
+<button class="startBtn" onclick="startShow()">
+Tap Here For Your Surprise ❤️
+</button>
+
 <canvas id="canvas"></canvas>
 
 <div id="msg" class="message">
 🎉 Happy Birthday My Love 🎉
-</div>
-
-<div id="sub" class="sub">
-A beautiful surprise is waiting for you ❤️
 </div>
 
 <script>
@@ -77,14 +129,21 @@ A beautiful surprise is waiting for you ❤️
 let canvas=document.getElementById("canvas");
 let ctx=canvas.getContext("2d");
 
+/* RESPONSIVE CANVAS */
+
+function resizeCanvas(){
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
 
 let rockets=[];
 let particles=[];
 let rocketCount=0;
 
-/* SOUND EFFECT */
+/* FIREWORK SOUND */
 
 function playBoom(){
 
@@ -118,7 +177,7 @@ function createRocket(){
 rockets.push({
 x:Math.random()*canvas.width,
 y:canvas.height,
-vy:-9-Math.random()*4
+vy:-8-Math.random()*4
 });
 
 }
@@ -130,11 +189,12 @@ function explode(x,y){
 playBoom();
 
 let colors=[
-"#ff0000","#ff7300","#ffd000","#00ff00",
-"#00e1ff","#004cff","#b700ff","#ff1493"
+"#ff0000","#ff7300","#ffd000",
+"#00ff00","#00e1ff","#004cff",
+"#b700ff","#ff1493"
 ];
 
-for(let i=0;i<90;i++){
+for(let i=0;i<80;i++){
 
 particles.push({
 
@@ -200,7 +260,13 @@ particles.splice(i,1);
 
 }
 
-/* LAUNCH 50 ROCKETS */
+/* START SHOW */
+
+function startShow(){
+
+document.querySelector(".startBtn").style.display="none";
+
+/* launch rockets */
 
 let rocketInterval=setInterval(()=>{
 
@@ -211,31 +277,29 @@ if(rocketCount>=50){
 clearInterval(rocketInterval);
 }
 
-},150);
+},120);
 
 /* animation */
 
 setInterval(draw,30);
 
-/* SHOW MESSAGE */
+/* show message */
 
 setTimeout(()=>{
 
 document.getElementById("msg").classList.add("show");
 
-setTimeout(()=>{
-document.getElementById("sub").classList.add("showSub");
-},800);
-
 },6000);
 
-/* REDIRECT */
+/* redirect */
 
 setTimeout(()=>{
 
-window.location.href="home.html";
+window.location.href="index.html";
 
-},11000);
+},10000);
+
+}
 
 </script>
 
